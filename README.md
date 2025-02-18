@@ -9,8 +9,12 @@ The accuracy obtained using this method on the Fashion-MNIST test daatset is 0.8
 This can be compared with the following accuracies presented in the Fashion-MNIST paper:
 
 LogisticRegression 
-C=1 multi_class=ovr penalty=l1 0.842 $\n$
-C=1 multi_class=ovr penalty=l2 0.841 \n
-C=10 multi_class=ovr penalty=l2 0.839 \n
-C=10 multi_class=ovr penalty=l1 0.839 \n
+C=1 multi_class=ovr penalty=l1 0.842 
+
+C=1 multi_class=ovr penalty=l2 0.841
+
+C=10 multi_class=ovr penalty=l2 0.839 
+
+C=10 multi_class=ovr penalty=l1 0.839 
+
 C=100 multi_class=ovr penalty=l2 0.836
