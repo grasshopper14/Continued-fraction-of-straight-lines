@@ -4,8 +4,10 @@
 import h5py
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix,normalized_mutual_info_score
 import mnist_reader
+import warnings
+warnings.filterwarnings('ignore')
 
 np.random.seed(2)
 
@@ -107,17 +109,15 @@ for k in range(iterc):
         L[k] = -(1./batch_size) * L_sum
         da = -1/m_batch*(Y_logf-Y)* gradfn_a(Yb_hat,a)
         dela = np.sum(da,axis=1,keepdims=True)
-        a = a + lra*dela
+        a = a + lra*dela #Satisfy the constraint a>0
         if not np.all(a>0):
-##            print(dela,a,np.argmin(a),dela[np.argmin(a)],k,j)
             a = a - lra*dela
             lra = lra/1.1
             print('Reducing lra to ...:',lra)
-##            lra = 1e-6+float('{:.2f}'.format(abs(float(
-##                a[np.argmin(a)]/dela[np.argmin(a)]))))
             print(lra)
             j=j-1
-        else:
+        else: #If a>0 is satisfied
+            #tune the rest of parameters with step size set to unity
             dm = -(Y_logf-Y)* gradfn_m(xinp,nonlin(xinp,a,m),a)
             m = m + lr*np.mean(dm,axis=1,keepdims=True)
             
@@ -125,30 +125,29 @@ for k in range(iterc):
                 nonlin(xinp,a,m),a,m)
             w = w + lr*np.dot(dwb1,X.T)
             b = b + lr*np.sum(dwb1,axis=1,keepdims=True)
-
+            # Comparison with vanilla logistic regression with step size 1
             Yl = 1./(1+np.exp(-(np.matmul(wl,X)+bl)))
             wl = wl + lr*np.dot(-(Yl-Y),X.T)
             bl = bl + lr*np.sum(-(Yl-Y),axis=1,keepdims=True)
             Ll[k] = -(1./batch_size) * np.sum(np.multiply(Y, np.log(Yl+0.05)))
             a_track[:,k]=a[:,0]
             m_track[:,k]=m[:,0]
-##            da = -1/m_batch*(Y_logf-Y)* gradfn_a(Yb_hat,a)
-##            dela = np.sum(da,axis=1,keepdims=True)
-##            lra = a/dela-0.1
-    print(k,L[k])
     a_f = a
     Yt_hat = nonlin(np.dot(w,X_test)+b,a_f,m)
     Yt_logf = 1./(1+np.exp(-Yt_hat))
-##        Yt_logf = 1./(1+np.exp(-(m*np.dot(w,X_test)+m*b)))
     Lt = -np.sum(np.multiply(Y_test, np.log(Yt_logf)),axis=1)
+    print('NMI:',normalized_mutual_info_score(np.argmax(Y_test,axis=0),
+                                        np.argmax(Yt_logf,axis=0)))
+    #Measuring accuracy on test set and comparing with vanilla log regression
     op=np.argmax(Y_test,axis=0)-np.argmax(Yt_logf,axis=0)
-
     Ylt = 1./(1+np.exp(-(np.dot(wl,X_test)+bl)))
     opl = np.argmax(Y_test,axis=0)-np.argmax(Ylt,axis=0)
     acc[k] = np.count_nonzero(op)
-    acc_l[k] = np.count_nonzero(opl)
-    print(np.count_nonzero(op),np.count_nonzero(opl))
+    acc_l[k] = np.count_nonzero(opl)    
+print('Continued fraction accuracy:',100-acc/100)
+print('Vanilla logistic regression accuracy:',100-acc_l/100)
 
+#Plotting
 fig, ax = plt.subplots()
 ax.plot(m_track[0,:],'.k',m_track[1,:],'+k',m_track[2,:],'xk',
         m_track[3,:],'1k',m_track[4,:],'2k',m_track[5,:],'3k',
