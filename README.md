@@ -1,3 +1,5 @@
+ 	
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/real-valued-continued-fraction-of-straight/image-classification-on-fashion-mnist)](https://paperswithcode.com/sota/image-classification-on-fashion-mnist?p=real-valued-continued-fraction-of-straight)  
 Enjoy fast convergence without the knowledge of "Regularization" 
 and with step size set to unity.
 All you need to do is do some algebraic manipulation as presented in:
