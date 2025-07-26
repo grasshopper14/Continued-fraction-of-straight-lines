@@ -5,7 +5,10 @@
 Continued fraction of straight line equation $y=mx$
 has shown significant improvement in convergence of logistic regression by inherently making gradient descent stepping adaptive: https://arxiv.org/abs/2412.16191 This technique can provide results without regularization in machine learning.
 
+These are two-parameter superposable S-curves: https://arxiv.org/abs/2504.19488
+
 Here, the continued fraction is just an interpretation of the formulation. And this is the best way to address nonlinear behavior of various quantities of interest.
+
 Enjoy fast convergence without the knowledge of "Regularization" 
 and with step size set to unity.
 All you need to do is do some algebraic manipulation as presented in:
