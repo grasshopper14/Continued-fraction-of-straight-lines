@@ -1,7 +1,7 @@
  	
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/real-valued-continued-fraction-of-straight/image-classification-on-fashion-mnist)](https://paperswithcode.com/sota/image-classification-on-fashion-mnist?p=real-valued-continued-fraction-of-straight)  
 
-Image classification of Fashion-MNIST dataset with just 7860 parameters - A state of the art technique in terms of number of trainable parameters as observed on paperswithcode [dot] com in April 2025. 
+Image classification of Fashion-MNIST dataset with just 7860 parameters - A state of the art technique in terms of number of trainable parameters as observed on paperswithcode [dot] com on April 2025. 
 
 Continued fraction of straight line equation $y=mx$
 has shown significant improvement in convergence of logistic regression by inherently making gradient descent stepping adaptive: https://arxiv.org/abs/2412.16191 This technique can provide results without regularization in machine learning.
