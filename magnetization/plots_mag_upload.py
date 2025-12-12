@@ -3,8 +3,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import os
 import pickle
+#gen_curve_fitting is available in co2_levels repository 
 from gen_curve_fitting import sup_fit,fn_c,fnder
-from gen_curve_fitting_hyst import sup_fit_hyst
+
 
 def fn_sum(params,xax,ams):
     supmod = 0
