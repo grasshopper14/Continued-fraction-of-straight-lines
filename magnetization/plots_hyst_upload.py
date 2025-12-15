@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import pickle
-#gen_curve_fitting is available in co2_levels repository 
 from gen_curve_fitting import sup_fit,fn_c,fnder
 from scipy.optimize import fsolve
 from scipy.integrate import quad
@@ -51,7 +50,7 @@ xder2=np.linspace(x2[0],x2[-1],10000)
 yeval = fn_sum(params,x1,ams)+params['offset']
 yeval2 = fn_sum(params2,x2,ams)+params2['offset']
 
-#Newton-Raphson
+#Newton-Raphson (or use fsolve)
 xr1=x1[np.where(yeval==np.max(yeval))[0][0]]
 xr2=x1[np.where(yeval==np.min(yeval))[0][0]]
 for i in range(10):
