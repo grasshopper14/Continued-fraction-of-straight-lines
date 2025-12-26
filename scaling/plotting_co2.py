@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import datetime as dt
 from plots_co2data_visfns import *
-
+# See co2_levels repo for details
 plt.rcParams['axes.grid'] = True
 plt.rcParams['grid.alpha'] = 0.45
 plt.rcParams['font.size'] = 15
